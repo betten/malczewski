@@ -4,9 +4,6 @@ html ->
     meta charset: 'utf-8'
     title "Malczewski"
 
-    link rel: 'stylesheet', href: '/css/malczewski.css'
-
-    script src: '/js/jquery.js'
-
+    script type: 'text/javascript', src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
 
   body @body
