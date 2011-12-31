@@ -4,6 +4,15 @@ var express = require('express'),
 
 var app = express.createServer(express.logger());
 
+app.configure(function() {
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(app.router);
+  app.use(express.static(__dirname + '/public'));
+});
+
 mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
 
   db.addListener("error", function(error) {
@@ -35,7 +44,10 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
 });
 
 app.get('/', function(request, response) {
-  
+  response.render('index');
+});
+
+app.get('/portraits/all', function(request, response) {
   mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
 
     db.addListener("error", function(error) {
@@ -43,25 +55,44 @@ app.get('/', function(request, response) {
     });
 
     db.collection("selfportraits", function(error, collection) {
-      collection.count(function(err, count) {
-        console.log("There are " + count + " records.");
-      });
-
-      collection.find(function(error, cursor) {
-        var output = "<div>output:</div>";
-        console.log("output:");
+      collection.find({}, { 'sort': 'filename' }, function(error, cursor) {
         cursor.toArray(function(error, docs) {
-          docs.forEach(function(doc) {
-            output += "<div>" + doc.filename + "</div>";
-            console.dir(doc);
-          });
-          response.send(output);
+          response.send(docs);
         });
       });
     });
 
   });
+});
 
+app.get('/portraits/:id', function(request, response) {
+   mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
+
+    db.addListener("error", function(error) {
+      console.log("Error connecting to MongoLab");
+    });
+
+    db.collection("selfportraits", function(error, collection) {
+      collection.find({ '_id': request.params.id }, { 'limit': 1 }, function(error, cursor) {
+        cursor.toArray(function(error, docs) {
+          response.send(docs[0]);
+        });
+      });
+    });
+
+  });
+});
+
+app.get('/admin', function(request, response) {
+});
+
+app.get('/admin/edit/:id', function(request, response) {
+});
+
+app.post('/admin/update/:id', function(request, response) {
+});
+
+app.post('/admin/delete/:id', function(request, response) {
 });
 
 var port = process.env.PORT || 3000;
