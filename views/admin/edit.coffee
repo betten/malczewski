@@ -11,7 +11,7 @@ form action: "/admin/update/#{@portrait.id}", method: 'post', ->
       input type: 'text', name: 'portrait[title]', value: @portrait.title or @portrait.filename
   div id: 'portrait', ->
     div id: 'center'
-    img id: 'image', src: @portrait.filename
+    img id: 'image', src: "/selfportraits/#{@portrait.filename}"
     input id: 'center_top', type: 'hidden', name: 'portrait[center_top]', value: @portrait.center_top
     input id: 'center_left', type: 'hidden', name: 'portrait[center_left]', value: @portrait.center_left
   div ->
