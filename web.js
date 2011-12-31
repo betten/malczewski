@@ -24,8 +24,8 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
           });
           console.log('new files:');
           console.dir(files);
-          for(file in files) {
-            collection.insert({ 'filename': file });
+          for(var i in files) {
+            collection.insert({ 'filename': files[i] });
           }
         });
       });
@@ -36,21 +36,23 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
 
 app.get('/', function(request, response) {
   
-  mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
+  // mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
 
-    db.addListener("error", function(error) {
-      console.log("Error connecting to MongoLab");
-    });
+  //   db.addListener("error", function(error) {
+  //     console.log("Error connecting to MongoLab");
+  //   });
 
-    collection.find(function(error, cursor) {
-      var output = "";
-      cursor.each(function(error, doc) {
-        if(doc != null) output += "<div>id: " + doc._id + ", filename: " + doc.filename + "</div>";
-      });
-      response.send(output);
-    });
+  //   collection.find(function(error, cursor) {
+  //     var output = "";
+  //     cursor.each(function(error, doc) {
+  //       if(doc != null) output += "<div>id: " + doc._id + ", filename: " + doc.filename + "</div>";
+  //     });
+  //     response.send(output);
+  //   });
 
-  });
+  // });
+
+  response.send("hello world");
 
 });
 
