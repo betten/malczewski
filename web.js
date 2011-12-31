@@ -33,7 +33,7 @@ var Portrait = {
         console.log('=========================');
         collection.find({ '_id': new bson.ObjectID(id) }, { 'limit': 1 }, function(error, cursor) {
           cursor.toArray(function(error, docs) {
-            callback(docs[0] || {});
+            //callback(docs[0] || {});
           });
         });
       });
@@ -95,10 +95,10 @@ app.get('/portraits/all', function(request, response) {
 });
 
 app.get('/portraits/:id', function(request, response) {
+  Portrait.get(request.params.id, function(portrait) {
+    response.send(portrait);
+  });
   response.send(request.params.id);
-  // Portrait.get(request.params.id, function(portrait) {
-  //   response.send(portrait);
-  // });
 });
 
 app.get('/admin', function(request, response) {
