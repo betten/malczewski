@@ -1,13 +1,13 @@
 link rel: 'stylesheet', type: 'text/css', href: 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/vader/jquery-ui.css'
 link rel: 'stylesheet', type: 'text/css', href: '/css/colorbox.css'
 style '''
-  #portraits { position: relative; margin: 0 auto; height: 600px; width: 800px; overflow: hidden; padding: 20px 0; }
+  #portraits { position: relative; margin: 20px auto; height: 600px; width: 800px; overflow: hidden; }
   #portraits .portrait { position: absolute; z-index: 1; }
   #slider { width: 800px; margin: 0 auto; }
   #current { text-align: center; }
 '''
-script src: 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'
-script src: '/js/jquery.colorbox-min.js'
+script type: 'text/javascript', src: 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'
+script type: 'text/javascript', src: '/js/jquery.colorbox-min.js'
 
 header ->
   h1 'Malczewski'
