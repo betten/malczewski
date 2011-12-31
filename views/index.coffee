@@ -20,13 +20,14 @@ coffeescript ->
       min: 0
       max: portraits.length
       slide: (event, ui) ->
-        portraits
-          .css
-            z-index: 1
-          .eq(ui.value).css
-            z-index: 99
-        $('#current').text(portraits.eq(ui.value).attr('title'))
-    portraits.first().css
+        current = portraits.eq(ui.value)
+        portraits.css
+          z-index: 1
+        current.css
+          z-index: 99
+        $('#current').text(current.attr('title'))
+    first = portraits.first()
+    first.css
       z-index: 99
-    $('#current').text(portraits.first().attr('title'))
+    $('#current').text(first.attr('title'))
     
