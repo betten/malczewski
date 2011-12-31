@@ -103,6 +103,22 @@ app.get('/admin/edit/:id', function(request, response) {
 });
 
 app.post('/admin/update/:id', function(request, response) {
+  response.send(JSON.stringify(request.body));
+  // mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
+
+  //   db.addListener("error", function(error) {
+  //     console.log("Error connecting to MongoLab");
+  //   });
+
+  //   db.collection("selfportraits", function(error, collection) {
+  //     collection.update({ 'id': request.params.id }, { '$set':  }, function(error, cursor) {
+  //       cursor.toArray(function(error, docs) {
+  //         response.send(docs);
+  //       });
+  //     });
+  //   });
+
+  // }); 
 });
 
 app.post('/admin/delete/:id', function(request, response) {
