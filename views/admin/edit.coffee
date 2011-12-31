@@ -23,10 +23,10 @@ coffeescript ->
       'top': (@portrait.center_top or 0) + 'px'
       'left': (@portrait.center_left or 0) + 'px'
     $('#portrait').css ->
-      'height': $('#image').height() + 'px',
+      'height': $('#image').height() + 'px'
       'width': $('#image').width() + 'px'
     $('#center').draggable ->
-      'containment': 'parent',
+      'containment': 'parent'
       'stop': (event, ui) ->
         $('#center_top').val(ui.position.top)
         $('#center_left').val(ui.position.left)
