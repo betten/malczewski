@@ -4,6 +4,11 @@ style '''
   #center { position: absolute; height: 50px; width: 150px; cursor: pointer; background: #f00; opacity: 0.5; }
 '''
 
+a href: '/admin', 'back to admin'
+
+p 'successfully updated' if updated === true
+p 'something went wrong saving, please try again' if updated === false
+
 form action: "/admin/update/#{@portrait.id}", method: 'post', ->
   div ->
     label ->

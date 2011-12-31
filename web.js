@@ -103,22 +103,33 @@ app.get('/admin/edit/:id', function(request, response) {
 });
 
 app.post('/admin/update/:id', function(request, response) {
-  response.send(JSON.stringify(request.body));
-  // mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
+  mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
 
-  //   db.addListener("error", function(error) {
-  //     console.log("Error connecting to MongoLab");
-  //   });
+    db.addListener("error", function(error) {
+      console.log("Error connecting to MongoLab");
+    });
 
-  //   db.collection("selfportraits", function(error, collection) {
-  //     collection.update({ 'id': request.params.id }, { '$set':  }, function(error, cursor) {
-  //       cursor.toArray(function(error, docs) {
-  //         response.send(docs);
-  //       });
-  //     });
-  //   });
+    db.collection("selfportraits", function(error, collection) {
+      collection.update(
+        { 'id': request.params.id }, 
+        { 
+          '$set': {
+           'title': request.body.portrait.title,
+           'center_top': request.body.portrait.center_top,
+           'center_left': request.body.portrait.center_left
+          }
+        }, 
+        { 'safe': true }, 
+        function(error) {
+          // probably a better way to avoid hitting the db so many times
+          Portrait.get(request.params.id, function(portrait) {
+            response.render('admin/edit', { 'portrait': portrait, 'updated': !error });
+          });
+        }
+      );
+    });
 
-  // }); 
+  }); 
 });
 
 app.post('/admin/delete/:id', function(request, response) {
