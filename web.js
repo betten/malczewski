@@ -43,14 +43,18 @@ app.get('/', function(request, response) {
     });
 
     db.collection("selfportraits", function(error, collection) {
+      collection.count(function(err, count) {
+        console.log("There are " + count + " records.");
+      });
+
       collection.find(function(error, cursor) {
         var output = "<div>output:</div>";
         console.log("output:");
-        cursor.each(function(error, doc) {
-          if(doc != null) {
+        cursor.toArray(function(error, docs) {
+          docs.forEach(function(doc) {
             output += "<div>" + doc.filename + "</div>";
             console.dir(doc);
-          }
+          });
         });
         response.send(output);
       });
