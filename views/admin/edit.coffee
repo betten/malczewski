@@ -19,6 +19,8 @@ form action: "/admin/update/#{@portrait.id}", method: 'post', ->
 
 coffeescript ->
   $(document).ready ->
+    alert(@portrait.filename)
+    return
     $('#center').css
       'top': (@portrait.center_top or 0) + 'px'
       'left': (@portrait.center_left or 0) + 'px'
