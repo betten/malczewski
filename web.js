@@ -44,9 +44,13 @@ app.get('/', function(request, response) {
 
     db.collection("selfportraits", function(error, collection) {
       collection.find(function(error, cursor) {
-        var output = "";
+        var output = "<div>output:</div>";
+        console.log("output:");
         cursor.each(function(error, doc) {
-          if(doc != null) output += "<div>" + doc.filename + "</div>";
+          if(doc != null) {
+            output += "<div>" + doc.filename + "</div>";
+            console.dir(doc);
+          }
         });
         response.send(output);
       });
