@@ -25,7 +25,7 @@ var Portrait = {
       });
 
       db.collection("selfportraits", function(error, collection) {
-        collection.find({ '_id': new bson.ObjectID(id) }, function(error, cursor) {
+        collection.find({ 'id': id }, function(error, cursor) {
           cursor.nextObject(function(error, doc) {
             callback(doc || {});
           });
@@ -54,10 +54,8 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
             var i = files.indexOf(doc.filename);
             if(i != -1) files.splice(i, 1);
           });
-          console.log('new files:');
-          console.dir(files);
           for(var i in files) {
-            collection.insert({ 'filename': files[i] });
+            collection.insert({ 'filename': files[i], 'id': files[i].replace(/\.\w*$/,'').replace(/\s/g, '-') });
           }
         });
       });
@@ -100,7 +98,6 @@ app.get('/admin', function(request, response) {
 
 app.get('/admin/edit/:id', function(request, response) {
   Portrait.get(request.params.id, function(portrait) {
-    //response.send(portrait);
     response.render('admin/edit', { 'portrait': portrait });
   });
 });
