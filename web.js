@@ -25,6 +25,9 @@ var Portrait = {
       });
 
       db.collection("selfportraits", function(error, collection) {
+        console.log('=========================');
+        console.log('id: ' + id);
+        console.log('=========================');
         collection.find({ '_id': new bson.ObjectID(id) }, { 'limit': 1 }, function(error, cursor) {
           cursor.toArray(function(error, docs) {
             callback(docs[0] || {});
