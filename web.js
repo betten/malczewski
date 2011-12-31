@@ -18,6 +18,9 @@ app.configure(function() {
 
 var Portrait = {
   get: function(id, callback) {
+    console.log('=========================');
+    console.log('pre connect id: ' + id);
+    console.log('=========================');
     mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
 
       db.addListener("error", function(error) {
@@ -102,6 +105,10 @@ app.get('/admin', function(request, response) {
 });
 
 app.get('/admin/edit/:id', function(request, response) {
+  console.log('=========================');
+  console.log('params: ');
+  console.dir(request.params);
+  console.log('=========================');
   Portrait.get(request.params.id, function(portrait) {
     response.render('admin/edit', { portrait: portrait });
   });
