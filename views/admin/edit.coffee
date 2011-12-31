@@ -19,13 +19,13 @@ form action: "/admin/update/#{@portrait.id}", method: 'post', ->
 
 coffeescript ->
   $(document).ready ->
-    $('#center').css ->
+    $('#center').css
       'top': (@portrait.center_top or 0) + 'px'
       'left': (@portrait.center_left or 0) + 'px'
-    $('#portrait').css ->
+    $('#portrait').css
       'height': $('#image').height() + 'px'
       'width': $('#image').width() + 'px'
-    $('#center').draggable ->
+    $('#center').draggable
       'containment': 'parent'
       'stop': (event, ui) ->
         $('#center_top').val(ui.position.top)
