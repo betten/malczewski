@@ -98,7 +98,7 @@ app.get('/portraits/all', function(request, response) {
 app.get('/portraits/:id', function(request, response) {
   Portrait.get(request.params.id, function(portrait) {
     //response.send(portrait);
-    response.send(request.params.id);
+    response.send(portrait.filename);
   });
   //response.send(request.params.id);
 });
