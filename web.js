@@ -42,12 +42,14 @@ app.get('/', function(request, response) {
       console.log("Error connecting to MongoLab");
     });
 
-    collection.find(function(error, cursor) {
-      var output = "";
-      cursor.each(function(error, doc) {
-        if(doc != null) output += "<div>" + doc.filename + "</div>";
+    db.collection("selfportraits", function(error, collection) {
+      collection.find(function(error, cursor) {
+        var output = "";
+        cursor.each(function(error, doc) {
+          if(doc != null) output += "<div>" + doc.filename + "</div>";
+        });
+        response.send(output);
       });
-      response.send(output);
     });
 
   });
