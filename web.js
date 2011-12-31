@@ -27,7 +27,8 @@ var Portrait = {
       db.collection("selfportraits", function(error, collection) {
         collection.find({ '_id': new bson.ObjectID(id) }, function(error, cursor) {
           cursor.nextObject(function(error, doc) {
-            callback(doc || {});
+            //callback(doc || {});
+            callback(id);
           });
         });
       });
@@ -100,15 +101,16 @@ app.get('/admin', function(request, response) {
 
 app.get('/admin/edit/:id', function(request, response) {
   Portrait.get(request.params.id, function(portrait) {
-    response.render('admin/edit', { 
-      'portrait': {
-        'id': '1234',
-        'filename': 'frank',
-        'title': 'hello world',
-        'center_top': 'wakawaka',
-        'center_left': 'foobar'
-      }
-    });
+    response.send(portrait);
+    // response.render('admin/edit', { 
+    //   'portrait': {
+    //     'id': '1234',
+    //     'filename': 'frank',
+    //     'title': 'hello world',
+    //     'center_top': 'wakawaka',
+    //     'center_left': 'foobar'
+    //   }
+    // });
   });
 });
 
