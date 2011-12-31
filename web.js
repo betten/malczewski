@@ -25,10 +25,9 @@ var Portrait = {
       });
 
       db.collection("selfportraits", function(error, collection) {
-        collection.find({ '_id': new bson.ObjectID(id) }, { 'limit': 1 }, function(error, cursor) {
-          cursor.toArray(function(error, docs) {
-            console.log(docs[0]);
-            callback(docs[0] || {});
+        collection.find({ '_id': new bson.ObjectID(id) }, function(error, cursor) {
+          cursor.nextObject(function(error, doc) {
+            callback(doc || {});
           });
         });
       });
@@ -101,7 +100,7 @@ app.get('/admin', function(request, response) {
 
 app.get('/admin/edit/:id', function(request, response) {
   Portrait.get(request.params.id, function(portrait) {
-    response.render('admin/edit', { 'portrait': {} });
+    response.render('admin/edit', { 'portrait': portrait });
     //response.send(JSON.stringify(portrait));
   });
 });
