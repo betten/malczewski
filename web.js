@@ -88,8 +88,23 @@ var Portrait = {
 };
 
 app.get('/portraits/:id', function(request, response) {
-  Portrait.get(request.params.id, function(portrait) {
-    response.send(portrait);
+  // Portrait.get(request.params.id, function(portrait) {
+  //   response.send(portrait);
+  // });
+  mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
+
+    db.addListener("error", function(error) {
+      console.log("Error connecting to MongoLab");
+    });
+
+    db.collection("selfportraits", function(error, collection) {
+      collection.find({ '_id': request.params.id }, { 'limit': 1 }, function(error, cursor) {
+        cursor.toArray(function(error, docs) {
+          response.send(docs[0]);
+        });
+      });
+    });
+
   });
 });
 
@@ -98,10 +113,23 @@ app.get('/admin', function(request, response) {
 });
 
 app.get('/admin/edit/:id', function(request, response) {
-  console.dir(request.params);
-  Portrait.get(request.params.id, function(portrait) {
-    console.dir(portrait);
-    response.render('admin/edit', { portrait: portrait });
+  // Portrait.get(request.params.id, function(portrait) {
+  //   response.render('admin/edit', { portrait: portrait });
+  // });
+  mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
+
+    db.addListener("error", function(error) {
+      console.log("Error connecting to MongoLab");
+    });
+
+    db.collection("selfportraits", function(error, collection) {
+      collection.find({ '_id': request.params.id }, { 'limit': 1 }, function(error, cursor) {
+        cursor.toArray(function(error, docs) {
+          response.render('admin/edit', { portrait: docs[0] });
+        });
+      });
+    });
+
   });
 });
 
