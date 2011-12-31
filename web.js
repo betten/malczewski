@@ -78,6 +78,8 @@ var Portrait = {
       db.collection("selfportraits", function(error, collection) {
         collection.find({ '_id': id }, { 'limit': 1 }, function(error, cursor) {
           cursor.toArray(function(error, docs) {
+            console.log(id);
+            console.dir(docs);
             callback(docs[0]);
           });
         });
