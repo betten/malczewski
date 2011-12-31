@@ -28,7 +28,7 @@ var Portrait = {
         collection.find({ '_id': new bson.ObjectID(id) }, function(error, cursor) {
           cursor.nextObject(function(error, doc) {
             //callback(doc || {});
-            callback(doc._id);
+            callback('' + doc._id);
           });
         });
       });
