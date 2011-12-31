@@ -6,8 +6,8 @@ style '''
 
 a href: '/admin', 'back to admin'
 
-p 'successfully updated' if updated is true
-p 'something went wrong saving, please try again' if updated is false
+p 'successfully updated' if @updated is true
+p 'something went wrong saving, please try again' if @updated is false
 
 form action: "/admin/update/#{@portrait.id}", method: 'post', ->
   div ->
