@@ -88,9 +88,11 @@ app.get('/portraits/:id', function(request, response) {
 });
 
 app.get('/admin', function(request, response) {
+  response.render('admin/index');
 });
 
 app.get('/admin/edit/:id', function(request, response) {
+  response.render('admin/edit', { id: request.params.id });
 });
 
 app.post('/admin/update/:id', function(request, response) {
