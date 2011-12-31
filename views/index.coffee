@@ -33,5 +33,8 @@ coffeescript ->
     first = portraits.first()
     first.css 'z-index': 99
     $('#current').text(first.attr('title'))
-    portraits.colorbox()
+    portraits.click ->
+      $.colorbox
+        'href': $(this).attr('src')
+        'title': $(this).attr('title')
     
