@@ -107,7 +107,7 @@ app.get('/admin', function(request, response) {
 app.get('/admin/edit/:id', function(request, response) {
   console.log('=========================');
   console.log('params: ');
-  console.dir(request.params);
+  console.dir(request);
   console.log('=========================');
   Portrait.get(request.params.id, function(portrait) {
     response.render('admin/edit', { portrait: portrait });
