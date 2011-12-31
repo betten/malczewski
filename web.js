@@ -55,8 +55,8 @@ app.get('/', function(request, response) {
             output += "<div>" + doc.filename + "</div>";
             console.dir(doc);
           });
+          response.send(output);
         });
-        response.send(output);
       });
     });
 
