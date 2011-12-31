@@ -4,6 +4,6 @@
   "dependencies": {
     "express": "2.2.0",
     "mongodb": "0.9.x",
-    "jade": ">= 0.0.1"
+    "coffeekup": "0.3.x"
   }
 }

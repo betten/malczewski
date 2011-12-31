@@ -6,7 +6,8 @@ var app = express.createServer(express.logger());
 
 app.configure(function() {
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
+  app.set('view engine', 'coffee');
+  app.register('.coffee', require('coffeekup').adapters.express);
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
