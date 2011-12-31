@@ -17,13 +17,12 @@ form action: "/admin/update/#{@portrait.id}", method: 'post', ->
   div ->
     input type: 'submit', value: 'save'
 
+script "window.center = { top: #{@portrait.center_top}, left: #{@portrait.center_left} };"
 coffeescript ->
   $(document).ready ->
-    alert(@portrait.filename)
-    return
     $('#center').css
-      'top': (@portrait.center_top or 0) + 'px'
-      'left': (@portrait.center_left or 0) + 'px'
+      'top': (center.top or 0) + 'px'
+      'left': (center.left or 0) + 'px'
     $('#portrait').css
       'height': $('#image').height() + 'px'
       'width': $('#image').width() + 'px'
