@@ -12,9 +12,7 @@ app.configure(function() {
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
-  app.set('view options', {
-    layout: false
-  });
+  app.set('view options', {});
 });
 
 mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
