@@ -100,8 +100,15 @@ app.get('/admin', function(request, response) {
 
 app.get('/admin/edit/:id', function(request, response) {
   Portrait.get(request.params.id, function(portrait) {
-    response.render('admin/edit', { 'portrait': portrait });
-    //response.send(JSON.stringify(portrait));
+    response.render('admin/edit', { 
+      'portrait': {
+        'id': portrait._id,
+        'filename': portrait.filename,
+        'title': portrait.title,
+        'center_top': portrait.center_top,
+        'center_left': portrait.center_left
+      }
+    });
   });
 });
 
