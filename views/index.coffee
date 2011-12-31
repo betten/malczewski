@@ -16,4 +16,4 @@ html ->
             console.log data
   body ->
     header ->
-      h1 Malczewski
+      h1 'Malczewski'
