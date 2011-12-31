@@ -101,15 +101,7 @@ app.get('/admin', function(request, response) {
 app.get('/admin/edit/:id', function(request, response) {
   Portrait.get(request.params.id, function(portrait) {
     //response.send(portrait);
-    response.render('admin/edit', { 
-      'portrait': {
-        'id': '1234',
-        'filename': 'frank',
-        'title': 'hello world',
-        'center_top': 'wakawaka',
-        'center_left': 'foobar'
-      }
-    });
+    response.render('admin/edit', { 'portrait': portrait });
   });
 });
 
