@@ -5,6 +5,6 @@ style '''
 
 header ->
   h1 'Malczewski'
-  div id: 'portraits' ->
+  div id: 'portraits', ->
     for portrait in @portraits
       img class: 'portrait', src: portrait.filename, style: "height: #{300 - parseInt(@portrait.center_top || 0)}px; width: #{400 - parseInt(@portrait.center_left || 0)}px;"
