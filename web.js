@@ -113,7 +113,8 @@ app.get('/admin/edit/:id', function(request, response) {
   console.dir(request.params);
   console.log('=========================');
   Portrait.get(request.params.id, function(portrait) {
-    response.render('admin/edit', { portrait: portrait });
+    response.send('filename: ' + portrait.filename);
+    //response.render('admin/edit', { portrait: portrait });
   });
 });
 
