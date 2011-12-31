@@ -13,11 +13,13 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
   db.collection("selfportraits", function(error, collection) {
     // load new self portraits into collection, new defined by file name
     fs.readdir('./public/selfportraits', function(error, files) {
-      collection.find({ 'filename': { '$nin': files } }, function(err, cursor) {
-        cursor.each(function(error, item) {
-          console.dir(item);
-        });
-      });
+      if(error) throw error;
+      console.dir(files);
+    //   collection.find({ 'filename': { '$nin': files } }, function(err, cursor) {
+    //     cursor.each(function(error, item) {
+    //       console.dir(item);
+    //     });
+    //   });
     });
   });
 
