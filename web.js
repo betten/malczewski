@@ -33,6 +33,24 @@ var Portrait = {
       });
 
     });
+  },
+
+  all: function(callback) {
+    mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
+
+      db.addListener("error", function(error) {
+        console.log("Error connecting to MongoLab");
+      });
+
+      db.collection("selfportraits", function(error, collection) {
+        collection.find({}, { 'sort': 'filename' }, function(error, cursor) {
+          cursor.toArray(function(error, docs) {
+            callback(docs);
+          });
+        });
+      });
+
+    });
   }
 };
 
@@ -65,24 +83,14 @@ mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
 });
 
 app.get('/', function(request, response) {
-  response.render('index');
+  Portrait.all(function(portraits) {
+    response.render('index', { 'portraits': portraits });
+  });
 });
 
 app.get('/portraits/all', function(request, response) {
-  mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
-
-    db.addListener("error", function(error) {
-      console.log("Error connecting to MongoLab");
-    });
-
-    db.collection("selfportraits", function(error, collection) {
-      collection.find({}, { 'sort': 'filename' }, function(error, cursor) {
-        cursor.toArray(function(error, docs) {
-          response.send(docs);
-        });
-      });
-    });
-
+  Portrait.all(function(portraits) {
+    response.send(portraits);
   });
 });
 
