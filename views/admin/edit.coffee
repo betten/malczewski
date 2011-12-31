@@ -7,7 +7,7 @@ style '''
 form action: "/admin/update/#{@portrait.id}", method: 'post', ->
   div ->
     label ->
-      p 'title:'
+      text 'title:'
       input type: 'text', name: 'portrait[title]', value: @portrait.title or @portrait.filename
   div id: 'portrait', ->
     div id: 'center'
