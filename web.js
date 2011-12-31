@@ -98,7 +98,9 @@ app.get('/admin', function(request, response) {
 });
 
 app.get('/admin/edit/:id', function(request, response) {
+  console.dir(request.params);
   Portrait.get(request.params.id, function(portrait) {
+    console.dir(portrait);
     response.render('admin/edit', { portrait: portrait });
   });
 });
