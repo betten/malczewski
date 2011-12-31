@@ -18,9 +18,6 @@ app.configure(function() {
 
 var Portrait = {
   get: function(id, callback) {
-    console.log('=========================');
-    console.log('pre connect id: ' + id);
-    console.log('=========================');
     mongo.connect(process.env.MONGOLAB_URI, {}, function(error, db) {
 
       db.addListener("error", function(error) {
@@ -28,9 +25,6 @@ var Portrait = {
       });
 
       db.collection("selfportraits", function(error, collection) {
-        console.log('=========================');
-        console.log('id: ' + id);
-        console.log('=========================');
         collection.find({ '_id': new bson.ObjectID(id) }, { 'limit': 1 }, function(error, cursor) {
           cursor.toArray(function(error, docs) {
             console.log(docs[0]);
@@ -97,10 +91,8 @@ app.get('/portraits/all', function(request, response) {
 
 app.get('/portraits/:id', function(request, response) {
   Portrait.get(request.params.id, function(portrait) {
-    //response.send(portrait);
     response.send(JSON.stringify(portrait));
   });
-  //response.send(request.params.id);
 });
 
 app.get('/admin', function(request, response) {
@@ -108,13 +100,8 @@ app.get('/admin', function(request, response) {
 });
 
 app.get('/admin/edit/:id', function(request, response) {
-  console.log('=========================');
-  console.log('params: ');
-  console.dir(request.params);
-  console.log('=========================');
   Portrait.get(request.params.id, function(portrait) {
-    response.send('filename: ' + portrait.filename);
-    //response.render('admin/edit', { portrait: portrait });
+    response.render('admin/edit', { 'portrait': portrait });
   });
 });
 
